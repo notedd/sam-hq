@@ -56,8 +56,8 @@ def show_res_multi(masks, scores, input_point, input_label, input_box, filename,
     plt.close()
 
 if __name__ == "__main__":
-    sam_checkpoint = "./pretrained_checkpoint/sam_vit_l_0b3195.pth"
-    model_type = "vit_l"
+    sam_checkpoint = "./pretrained_checkpoint/sam_vit_h_4b8939.pth"
+    model_type = "vit_h"
     device = "cuda"
     sam = sam_model_registry_baseline[model_type](checkpoint=sam_checkpoint)
     sam.to(device=device)
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     for i in range(8):
         print("image:   ",i)
-        image = cv2.imread('demo/input_imgs/example'+str(i)+'.png')
+        image = cv2.imread('./input_imgs/example'+str(i)+'.png')
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         predictor.set_image(image)
 
@@ -100,7 +100,7 @@ if __name__ == "__main__":
             input_point, input_label = None, None
 
         batch_box = False if input_box is None else len(input_box)>1 
-        result_path = 'demo/baseline_sam_result/'
+        result_path = './baseline_sam_result/'
         os.makedirs(result_path, exist_ok=True)
 
         if not batch_box: 

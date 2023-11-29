@@ -66,6 +66,8 @@ if __name__ == "__main__":
 
     for i in range(8):
         print("image:   ",i)
+        if i!=2 :
+            continue
         # hq_token_only: False means use hq output to correct SAM output. 
         #                True means use hq output only. 
         #                Default: False
@@ -74,7 +76,7 @@ if __name__ == "__main__":
         # For images contain single object, we suggest to set hq_token_only = True
         # For quantiative evaluation on COCO/YTVOS/DAVIS/UVO/LVIS etc., we set hq_token_only = False
 
-        image = cv2.imread('demo/input_imgs/example'+str(i)+'.png')
+        image = cv2.imread('./input_imgs/example'+str(i)+'.png')
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         predictor.set_image(image)
 
@@ -112,7 +114,7 @@ if __name__ == "__main__":
             input_point, input_label = None, None
 
         batch_box = False if input_box is None else len(input_box)>1 
-        result_path = 'demo/hq_sam_result/'
+        result_path = './hq_sam_result/'
         os.makedirs(result_path, exist_ok=True)
 
         if not batch_box: 
